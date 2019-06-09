@@ -11,6 +11,7 @@ using Autofac.Extensions.DependencyInjection;
 
 using Serilog;
 using Serilog.Extensions.Logging;
+using Serilog.Settings.Configuration;
 using Serilog.Sinks.File;
 using Serilog.Sinks.SystemConsole;
 
