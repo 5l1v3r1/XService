@@ -13,7 +13,7 @@ namespace XService.Enterprise.Aspects
     /// In the event of an model validation error, the join point will not be invoked and
     /// the interception will throw a ValidationException
     /// </summary>
-    /// <param name="invocation">The join point</param>
+    /// <param name="invocation">The join point or point of invocation</param>
     protected override void OnEntered(Castle.DynamicProxy.IInvocation invocation) {
         var isErrored = false;
         var messages = new List<string>();
@@ -23,7 +23,6 @@ namespace XService.Enterprise.Aspects
             // wire up a context for validation - ideally this would be cached
             var context = new ValidationContext(arg, serviceProvider:null, items:null);
             var results = new List<ValidationResult>();
-            
             
             // validate the argument
             var isValid = Validator.TryValidateObject(arg, context, results);

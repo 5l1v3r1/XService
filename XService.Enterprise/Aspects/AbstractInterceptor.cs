@@ -7,9 +7,9 @@ using Castle.DynamicProxy;
 namespace XService.Enterprise.Aspects
 {
     /// <summary>
-    /// Provides Interceptor pipeline implementation
+    /// Provides an interceptor pipeline implementation
     /// </summary>
-    public class AbstractInterceptor : IInterceptor
+    public abstract class AbstractInterceptor : IInterceptor
     {
         /// <summary>
         /// Provides a pipeline for interception
