@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Castle.DynamicProxy;
 
-namespace XService.Driver.Aspects
+namespace XService.Enterprise.Aspects
 {
     /// <summary>
     /// Provides Interceptor pipeline implementation

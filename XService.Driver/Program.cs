@@ -14,6 +14,8 @@ using Serilog.Extensions.Logging;
 using Serilog.Sinks.File;
 using Serilog.Sinks.SystemConsole;
 
+using XService.Enterprise.Aspects;
+
 namespace XService.Driver
 {
     public class Program
@@ -81,10 +83,10 @@ namespace XService.Driver
                 builder.RegisterType<Business.Rules.SampleRule>()
                     .As<Business.Rules.IRule>()
                     .EnableInterfaceInterceptors()
-                    .InterceptedBy(typeof(Aspects.LoggingAspect));
+                    .InterceptedBy(typeof(LoggingAspect));
 
                 // Register interceptors
-                builder.RegisterType<XService.Driver.Aspects.LoggingAspect>();
+                builder.RegisterType<LoggingAspect>();
 
                 // Registers the BusinessEngine an IHostedService
                 builder.RegisterType<XService.Business.BusinessEngine>()

@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 
-namespace XService.Driver.Aspects
+namespace XService.Enterprise.Aspects
 {
   public class LoggingAspect : AbstractInterceptor
   {

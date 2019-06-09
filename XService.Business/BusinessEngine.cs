@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace XService.Business
 {
   /// <summary>
-  /// Provides 
+  /// Provides business logic
   /// </summary>
   public class BusinessEngine : BackgroundService
   {
@@ -58,7 +58,10 @@ namespace XService.Business
           foreach(var rule in _Rules) {
             rule.Execute("test");
           }
+          
+          // force the execution cycle to break
           breakExecution = true;
+
         } catch (Exception ex) {
           _ExecutionLogger?.LogError(ex, "An error has occurred");
           throw;

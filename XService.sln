@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XService.Driver", "XService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XService.Business", "XService.Business\XService.Business.csproj", "{A88ECCF5-A2A9-463F-90E8-9C14F1E119EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XService.Enterprise", "XService.Enterprise\XService.Enterprise.csproj", "{26E6663D-1176-4A91-8AD9-204EB42BAFF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{A88ECCF5-A2A9-463F-90E8-9C14F1E119EE}.Release|x64.Build.0 = Release|Any CPU
 		{A88ECCF5-A2A9-463F-90E8-9C14F1E119EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{A88ECCF5-A2A9-463F-90E8-9C14F1E119EE}.Release|x86.Build.0 = Release|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Debug|x64.Build.0 = Debug|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Debug|x86.Build.0 = Debug|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Release|x64.ActiveCfg = Release|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Release|x64.Build.0 = Release|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Release|x86.ActiveCfg = Release|Any CPU
+		{26E6663D-1176-4A91-8AD9-204EB42BAFF4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

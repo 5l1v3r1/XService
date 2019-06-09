@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace XService.Driver.Aspects
+namespace XService.Enterprise.Aspects
 {
   public class ModelValidatorAspect : AbstractInterceptor
   {

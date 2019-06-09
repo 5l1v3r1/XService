@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>XService.Enterprise</AssemblyName>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors></Authors>
+    <Company></Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyTitle></AssemblyTitle>
+    <Description>Provides core enterprise features and utilities</Description>
+    <Copyright></Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="autofac.extras.dynamicproxy" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+  </ItemGroup>
+</Project>

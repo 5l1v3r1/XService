@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\XService.Business\XService.Business.csproj" />
+    <ProjectReference Include="..\XService.Enterprise\XService.Enterprise.csproj" />
   </ItemGroup>
 
   <ItemGroup>
