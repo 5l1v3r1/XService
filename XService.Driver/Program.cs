@@ -10,11 +10,12 @@ using Autofac.Extensions.DependencyInjection;
 
 using Serilog;
 using Serilog.Extensions.Logging;
+using Serilog.Sinks.File;
 using Serilog.Sinks.SystemConsole;
 
 namespace XService.Driver
 {
-  public class Program
+    public class Program
     {
         private static string _InputFolder;
         private static string _OutputFolder;
@@ -34,35 +35,46 @@ namespace XService.Driver
             hostBuilder.RunConsoleAsync();
         }
 
-    /// <summary>
-    /// Configure Logging
-    /// </summary>
-    /// <returns></returns>
-    private static Action<ILoggingBuilder> ConfigureLogging()
-    {
-      return loggingBuilder =>
-      {
-        var logger = new LoggerConfiguration()
-                    .Enrich.WithProperty("ApplicationName", typeof(Program).Assembly.GetName().Name)
-                    .Enrich.WithProperty("AppDomain", AppDomain.CurrentDomain)
-                    .Enrich.WithProperty("RuntimeVersion", Environment.Version)
-                    .WriteTo.Console(
-                        outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {Message} {NewLine}{Exception}")
-                    .CreateLogger();
-        loggingBuilder
-            .AddSerilog(logger:logger, dispose: true);
+        /// <summary>
+        /// Configure Logging
+        /// </summary>
+        /// <returns></returns>
+        private static Action<ILoggingBuilder> ConfigureLogging()
+        {
+            return loggingBuilder =>
+            {
+                var logger = new LoggerConfiguration()
+                            .Enrich.WithProperty("ApplicationName", typeof(Program).Assembly.GetName().Name)
+                            .Enrich.WithProperty("RuntimeVersion", Environment.Version)
+                            .WriteTo.File(
+                                // https://github.com/serilog/serilog-sinks-file
+                                path: "log.txt",
+                                rollingInterval: Serilog.RollingInterval.Day,
+                                shared: true,
+                                outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {Message} {NewLine}{Exception}")
+                            .WriteTo.Console(
+                                theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme.Literate,
+                                outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {Message} {NewLine}{Exception}")
+                            .CreateLogger();
+                loggingBuilder
+                    .AddSerilog(logger:logger, dispose: true);
 
-        logger.Information("Application Name: {ApplicationName}");
-        logger.Information("App Domain      : {AppDomain}");
-        logger.Information("Runtime Version : {RuntimeVersion}");
-      };
-    }
+                logger.Information("".PadRight(80,'*'));
+                logger.Information($"Machine Name    : {Environment.MachineName}");
+                logger.Information($"OS Architecture : {(Environment.Is64BitOperatingSystem ? "x64" : "x32")}");
+                logger.Information($"Processors      : {Environment.ProcessorCount}");
+                logger.Information($"User            : {Environment.UserDomainName}\\{Environment.UserName}");
+                logger.Information("Application Name: {ApplicationName}");
+                logger.Information("Runtime Version : {RuntimeVersion}");
+                logger.Information("".PadRight(80,'*'));
+            };
+        }
 
-    /// <summary>
-    /// Configures the container
-    /// </summary>
-    /// <returns></returns>
-    private static Action<HostBuilderContext, ContainerBuilder> ConfigureContainer()
+        /// <summary>
+        /// Configures the container
+        /// </summary>
+        /// <returns></returns>
+        private static Action<HostBuilderContext, ContainerBuilder> ConfigureContainer()
         {
             return (context, builder) =>
             {
