@@ -50,6 +50,9 @@ namespace XService.Business
       
       while(!stoppingToken.IsCancellationRequested && !breakExecution) {
         try {
+          _ExecutionLogger?.LogInformation($"Input Folder: {_Configuration.GetValue<string>("InputFolder")}");
+          _ExecutionLogger?.LogInformation($"Output Folder: {_Configuration.GetValue<string>("OutputFolder")}");
+
           // Do work here
           _ExecutionLogger?.LogInformation("In business logic");
           foreach(var rule in _Rules) {

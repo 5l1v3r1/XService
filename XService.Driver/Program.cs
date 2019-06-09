@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -17,9 +18,6 @@ namespace XService.Driver
 {
     public class Program
     {
-        private static string _InputFolder;
-        private static string _OutputFolder;
-
         public static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
@@ -60,12 +58,14 @@ namespace XService.Driver
                     .AddSerilog(logger:logger, dispose: true);
 
                 logger.Information("".PadRight(80,'*'));
-                logger.Information($"Machine Name    : {Environment.MachineName}");
-                logger.Information($"OS Architecture : {(Environment.Is64BitOperatingSystem ? "x64" : "x32")}");
-                logger.Information($"Processors      : {Environment.ProcessorCount}");
-                logger.Information($"User            : {Environment.UserDomainName}\\{Environment.UserName}");
-                logger.Information("Application Name: {ApplicationName}");
-                logger.Information("Runtime Version : {RuntimeVersion}");
+                logger.Information($"Machine Name         : {Environment.MachineName}");
+                logger.Information($"OS Name and Version  : {System.Runtime.InteropServices.RuntimeInformation.OSDescription}");
+                logger.Information($"OS Architecture      : {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
+                logger.Information($"Process Architecture : {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}");
+                logger.Information($"Processors           : {Environment.ProcessorCount}");
+                logger.Information($"User                 : {Environment.UserDomainName}\\{Environment.UserName}");
+                logger.Information("Application Name     : {ApplicationName}");
+                logger.Information("Runtime Version      : {RuntimeVersion}");
                 logger.Information("".PadRight(80,'*'));
             };
         }
@@ -100,15 +100,15 @@ namespace XService.Driver
         {
             return (context, builder) =>
             {
-                // Pass the setup from the host to the app
+                // Pass the environment from the host to the app
                 var env = context.HostingEnvironment;
-                builder.AddEnvironmentVariables();
+                builder
+                    .AddJsonFile(
+                        path: "appsettings.json", 
+                        optional:true, 
+                        reloadOnChange: true)
+                    .AddEnvironmentVariables();
                 var config = builder.Build();
-
-                // Read the configuration
-                _InputFolder = config.GetValue<string>("InputFolder");
-                _OutputFolder = config.GetValue<string>("OutputFolder");
-
             };
         }
 
