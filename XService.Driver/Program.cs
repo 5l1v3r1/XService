@@ -16,6 +16,8 @@ using Serilog.Sinks.File;
 using Serilog.Sinks.SystemConsole;
 
 using XService.Enterprise.Aspects;
+using XService.Enterprise.Contracts;
+using XService.Enterprise.Providers;
 
 namespace XService.Driver
 {
@@ -86,12 +88,25 @@ namespace XService.Driver
                     .EnableInterfaceInterceptors()
                     .InterceptedBy(typeof(LoggingAspect));
 
+                builder.RegisterType<MemoryCacheProvider>()
+                    .As<ICacheProvider>()
+                    .SingleInstance();
+
                 // Register interceptors
                 builder.RegisterType<LoggingAspect>();
+                builder.RegisterType<CachingAspect>()
+                    .SingleInstance();
 
                 // Registers the BusinessEngine an IHostedService
                 builder.RegisterType<XService.Business.BusinessEngine>()
                     .As<IHostedService>();
+
+                // Register any exspensive data operations with caching
+                // builder.RegisterType<SomeExpensiveClass>()
+                //     .As<IExpensiveOperation>()
+                //     .EnableInterfaceInterceptors()
+                //     .InterceptedBy(typeof(CachingAspect))
+                //     .SingleInstance();
             };
         }
 

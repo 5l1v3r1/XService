@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace XService.Business.Models
 {
-    public class TestModel
+    public class SampleModel
     {
         [Required]
         public string Name { get; set; }

@@ -13,7 +13,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyTitle></AssemblyTitle>
     <Description>Provides core enterprise features and utilities</Description>
-    <Copyright></Copyright>
+    <Copyright>{{Copyright}}</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
