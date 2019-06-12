@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>XService</AssemblyName>
-    <PackageId>XService</PackageId>
+    <AssemblyName>XService.Driver</AssemblyName>
+    <PackageId>XService.Driver</PackageId>
     <VersionPrefix>1.0.0</VersionPrefix>
     <Authors></Authors>
     <Company></Company>

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Daniel Pries",
+  "classifications": [ "Common", "Console" ],
+  "identity": "XService.ConsoleTemplate.CSharp",
+  "name": "XService Enterprise Console Application",
+  "shortName": "xservice",
+  "tags": {
+      "language": "C#"
+  },
+  "sourceName": "XService",
+  "preferNameDirectory" : true,
+  "symbols":{
+      "cp": {
+          "type": "parameter",
+          "isRequired": false,
+          "defaultValue": "",
+          "replaces":"{{Copyright}}",
+          "description": "The organization copyright information"
+      }
+  }
+}
