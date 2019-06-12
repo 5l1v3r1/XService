@@ -4,27 +4,26 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Castle.DynamicProxy;
 
-namespace XService.Enterprise.Aspects
-{
+namespace XService.Enterprise.Aspects {
     /// <summary>
     /// Provides an interceptor pipeline implementation
     /// </summary>
-    public abstract class AbstractInterceptor : IInterceptor
-    {
+    public abstract class AbstractInterceptor : IInterceptor {
         /// <summary>
         /// Provides a pipeline for interception
         /// </summary>
         /// <param name="invocation"></param>
-        public virtual void Intercept(IInvocation invocation)
-        {
+        public virtual void Intercept(IInvocation invocation) {
             try {
                 OnEntered(invocation);
                 invocation.Proceed();
                 OnExited(invocation);
-            } catch (Exception ex) { 
+            }
+            catch (Exception ex) {
                 OnErrored(invocation, ex);
                 throw;
-            } finally {
+            }
+            finally {
                 OnFinally(invocation);
             }
         }

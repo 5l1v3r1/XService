@@ -5,18 +5,15 @@ using Castle.DynamicProxy;
 using XService.Enterprise.Attributes;
 using XService.Enterprise.Contracts;
 
-namespace XService.Enterprise.Aspects
-{
-    public class CachingAspect : IInterceptor
-    {
+namespace XService.Enterprise.Aspects {
+    public class CachingInterceptor : IInterceptor {
         private readonly ICacheProvider _cache;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
-        public CachingAspect(ICacheProvider cache)
-        {
+        public CachingInterceptor(ICacheProvider cache) {
             _cache = cache;
         }
 
@@ -24,8 +21,7 @@ namespace XService.Enterprise.Aspects
         /// Logs the join point (invocation) and supplied arguments before the join point is invoked
         /// </summary>
         /// <param name="invocation"></param>
-        public void Intercept(IInvocation invocation)
-        {
+        public void Intercept(IInvocation invocation) {
             var cacheAttr = GetCacheResultAttribute(invocation);
 
             if (cacheAttr == null) {
@@ -53,8 +49,7 @@ namespace XService.Enterprise.Aspects
         /// </summary>
         /// <param name="invocation"></param>
         /// <returns></returns>
-        private CacheResultAttribute GetCacheResultAttribute(IInvocation invocation)
-        {
+        private CacheResultAttribute GetCacheResultAttribute(IInvocation invocation) {
             return Attribute.GetCustomAttribute(
                 invocation.MethodInvocationTarget,
                 typeof(CacheResultAttribute)
@@ -67,8 +62,7 @@ namespace XService.Enterprise.Aspects
         /// </summary>
         /// <param name="invocation"></param>
         /// <returns></returns>
-        private string GetInvocationSignature(IInvocation invocation)
-        {
+        private string GetInvocationSignature(IInvocation invocation) {
             return String.Format("{0}-{1}-{2}",
                 invocation.TargetType.FullName,
                 invocation.Method.Name,

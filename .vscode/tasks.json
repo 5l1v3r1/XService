@@ -31,6 +31,26 @@
                 "${workspaceFolder}/XService.Driver/XService.Driver.csproj"
             ],
             "problemMatcher": "$tsc"
+        },
+        {
+            "label": "Install dotnet-format",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "tool",
+                "install",
+                "dotnet-format",
+                "-g"
+            ]
+        },
+        {
+            "label": "Format",
+            "command": "dotnet-format",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

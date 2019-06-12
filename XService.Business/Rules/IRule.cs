@@ -1,7 +1,5 @@
-namespace XService.Business.Rules
-{
-    public interface IRule
-    {
-         string Execute(string t);
+namespace XService.Business.Rules {
+    public interface IRule {
+        string Execute(string t);
     }
 }

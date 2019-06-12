@@ -1,7 +1,5 @@
-namespace XService.Enterprise.Contracts
-{
-    public interface ICacheProvider
-    {
+namespace XService.Enterprise.Contracts {
+    public interface ICacheProvider {
         /// <summary>
         /// Returns an object if it exists from the cache
         /// </summary>
