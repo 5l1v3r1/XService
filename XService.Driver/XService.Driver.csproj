@@ -39,6 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="appsettings.json" CopyToPublishDirectory="Always" />
+    <None Update="appsettings.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

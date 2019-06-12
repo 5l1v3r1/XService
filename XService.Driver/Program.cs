@@ -21,17 +21,18 @@ using XService.Enterprise.Providers;
 
 namespace XService.Driver {
     public class Program {
+
+        private static IConfigurationRoot _Configuration;
         public static void Main(string[] args) {
             Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
 
             var hostBuilder = new HostBuilder()
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-
                 .ConfigureContainer<ContainerBuilder>(ConfigureContainer())
                 .ConfigureHostConfiguration(ConfigureHostConfiguration(args))
                 .ConfigureAppConfiguration(ConfigureAppConfiguration())
                 .ConfigureLogging(ConfigureLogging());
-            // return the host builder task
+            // return the hostBuilder task and set the Main to Task to run as a continuous service
             hostBuilder.RunConsoleAsync();
         }
 
@@ -44,16 +45,9 @@ namespace XService.Driver {
                 var logger = new LoggerConfiguration()
                             .Enrich.WithProperty("ApplicationName", typeof(Program).Assembly.GetName().Name)
                             .Enrich.WithProperty("RuntimeVersion", Environment.Version)
-                            .WriteTo.File(
-                                // https://github.com/serilog/serilog-sinks-file
-                                path: "log.txt",
-                                rollingInterval: Serilog.RollingInterval.Day,
-                                shared: true,
-                                outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {Message} {NewLine}{Exception}")
-                            .WriteTo.Console(
-                                theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme.Literate,
-                                outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {Message} {NewLine}{Exception}")
+                            .ReadFrom.Configuration(_Configuration)
                             .CreateLogger();
+
                 loggingBuilder
                     .AddSerilog(logger: logger, dispose: true);
 
@@ -112,12 +106,17 @@ namespace XService.Driver {
                 // Pass the environment from the host to the app
                 var env = context.HostingEnvironment;
                 builder
+                    .SetBasePath(env.ContentRootPath)
                     .AddJsonFile(
                         path: "appsettings.json",
                         optional: true,
                         reloadOnChange: true)
+                    .AddJsonFile(
+                        path: $"appsettings.{env.EnvironmentName}.json",
+                        optional: true,
+                        reloadOnChange: true)
                     .AddEnvironmentVariables();
-                var config = builder.Build();
+                _Configuration = builder.Build();
             };
         }
 
