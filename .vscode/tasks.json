@@ -17,7 +17,9 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/XService.Driver/XService.Driver.csproj"
+                "${workspaceFolder}/XService.Driver/XService.Driver.csproj",
+                "-c",
+                "Release"
             ],
             "problemMatcher": "$tsc"
         },

@@ -14,6 +14,7 @@
     <AssemblyTitle></AssemblyTitle>
     <Description>Provides the business logic</Description>
     <Copyright>{{Copyright}}</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

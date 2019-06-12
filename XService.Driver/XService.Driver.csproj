@@ -16,6 +16,7 @@
     <AssemblyTitle></AssemblyTitle>
     <Description></Description>
     <Copyright>{{Copyright}}</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
