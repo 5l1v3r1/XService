@@ -1,16 +1,16 @@
 # XService - Enterprise Console Service Template
 
-The goal of this template is to provide a 12-Factor ready .NET Core based console service solution from the `dotnet new` cli.
+The goal of this template is to provide a [12-Factor](https://12factor.net/) ready .NET Core based console service solution from the `dotnet new` cli.
 
 Other than the IoC container and logging mechansim, this project is designed to keep tooling opinions to a minimum, while providing the a starting point for creating robust enterprise level application.
 
 ## What is included
-* AutoFac
-    * Provides DI support
-    * Aspect Oriented Programming
+* [AutoFac](https://autofac.org/)
+    * Provides DI support as an Inversion of Control container
+    * Aspect Oriented Programming support for
         * Interceptors
         * Attributes
-* Serilog
+* [Serilog](https://serilog.net/)
     * Standard logging functionality
     * Logging via configuration with support for the following sinks
         * Console (SystemConsole)
@@ -19,18 +19,19 @@ Other than the IoC container and logging mechansim, this project is designed to 
 * Decoupled hosted service model
     * Allows the business hosted service to remain portable from its execution profile
 * Linting
-    * .editorconfig settings to enforce (or encourage) development standards
-    * dotnet-format
+    * [.editorconfig](https://editorconfig.org/) settings to enforce (or encourage) development standards
+    * [otnet-format](https://github.com/dotnet/format)
         * Allows for automated code corrections via .editorconfig file
         * _For VS Code/Codium Users_ there are tasks supporting installation and running
-* Docker
+* [Docker](https://www.docker.com/) Support
     * The Driver application supports docker for .NET Core 2.2
     * At a solution level, docker-compose support allows for multi application services
 
 ## Coming soon
-+ Conditional test project
+* Conditional test project
 * Coverlet support for code coverage reporting
 * Support for automated documentation
+* Install via nuget
 
 ### To install as a dotnet new tempalate
 ```
