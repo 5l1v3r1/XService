@@ -4,7 +4,7 @@ The goal of this template is to provide a [12-Factor](https://12factor.net/) rea
 
 Other than the IoC container and logging mechansim, this project is designed to keep tooling opinions to a minimum, while providing the a starting point for creating robust enterprise level applications.
 
-There are other templates that focus on domain driven design or implement stronger paradigms; however, the world is full of FileWatchers, adhocs and data movers that do not gain value of DDD or other architectural paradigms.  An since the value is in quick turn-around, I wanted to make sure developers spent less time undoing opinions are more time adding value. You are welcome.
+There are other templates that focus on domain driven design or implement stronger paradigms; however, the world is full of FileWatchers, adhocs and data movers that do not gain value of DDD or other architectural paradigms.  Since the value is in quick turn-around, I wanted to make sure developers spent less time undoing opinions are more time adding value. You are welcome.
 
 ## What is included
 * [AutoFac](https://autofac.org/)
