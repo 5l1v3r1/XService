@@ -19,11 +19,14 @@ using XService.Enterprise.Aspects;
 using XService.Enterprise.Contracts;
 using XService.Enterprise.Providers;
 
-namespace XService.Driver {
-    public class Program {
+namespace XService.Driver
+{
+    public class Program
+    {
 
         private static IConfigurationRoot _Configuration;
-        public static void Main(string[] args) {
+        public static void Main(string[] args)
+        {
             Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
 
             var hostBuilder = new HostBuilder()
@@ -40,8 +43,10 @@ namespace XService.Driver {
         /// Configure Logging
         /// </summary>
         /// <returns></returns>
-        private static Action<ILoggingBuilder> ConfigureLogging() {
-            return loggingBuilder => {
+        private static Action<ILoggingBuilder> ConfigureLogging()
+        {
+            return loggingBuilder =>
+            {
                 var logger = new LoggerConfiguration()
                             .Enrich.WithProperty("ApplicationName", typeof(Program).Assembly.GetName().Name)
                             .Enrich.WithProperty("RuntimeVersion", Environment.Version)
@@ -68,12 +73,15 @@ namespace XService.Driver {
         /// Configures the container
         /// </summary>
         /// <returns></returns>
-        private static Action<HostBuilderContext, ContainerBuilder> ConfigureContainer() {
-            return (context, builder) => {
+        private static Action<HostBuilderContext, ContainerBuilder> ConfigureContainer()
+        {
+            return (context, builder) =>
+            {
                 builder.RegisterType<Business.Rules.SampleRule>()
                     .As<Business.Rules.IRule>()
                     .EnableInterfaceInterceptors()
-                    .InterceptedBy(typeof(LoggingInterceptor));
+                    .InterceptedBy(typeof(LoggingInterceptor))
+                    .InterceptedBy(typeof(ModelValidatorInterceptor));
 
                 builder.RegisterType<MemoryCacheProvider>()
                     .As<ICacheProvider>()
@@ -82,6 +90,8 @@ namespace XService.Driver {
                 // Register interceptors
                 builder.RegisterType<LoggingInterceptor>();
                 builder.RegisterType<CachingInterceptor>()
+                    .SingleInstance();
+                builder.RegisterType<ModelValidatorInterceptor>()
                     .SingleInstance();
 
                 // Registers the BusinessEngine an IHostedService
@@ -101,8 +111,10 @@ namespace XService.Driver {
         /// Configures the Application
         /// </summary>
         /// <returns></returns>
-        private static Action<HostBuilderContext, IConfigurationBuilder> ConfigureAppConfiguration() {
-            return (context, builder) => {
+        private static Action<HostBuilderContext, IConfigurationBuilder> ConfigureAppConfiguration()
+        {
+            return (context, builder) =>
+            {
                 // Pass the environment from the host to the app
                 var env = context.HostingEnvironment;
                 builder
@@ -125,14 +137,17 @@ namespace XService.Driver {
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        private static Action<IConfigurationBuilder> ConfigureHostConfiguration(string[] args) {
-            return config => {
+        private static Action<IConfigurationBuilder> ConfigureHostConfiguration(string[] args)
+        {
+            return config =>
+            {
                 // Setup Environment Variable Configuration
                 config.AddEnvironmentVariables();
 
                 // Add & Overwrite any command line configs
                 // e.g. --Config "Value"
-                if (args != null) {
+                if (args != null)
+                {
                     config.AddCommandLine(args);
                 }
             };
