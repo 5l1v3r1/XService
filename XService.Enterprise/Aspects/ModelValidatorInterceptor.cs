@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
+using XService.Enterprise.Extensions;
+
 namespace XService.Enterprise.Aspects {
     public class ModelValidatorInterceptor : AbstractInterceptor {
         public ModelValidatorInterceptor() { }
@@ -18,12 +20,7 @@ namespace XService.Enterprise.Aspects {
 
             // Setup validation for every argument
             foreach (var arg in invocation.Arguments) {
-                // wire up a context for validation - ideally this would be cached
-                var context = new ValidationContext(arg, serviceProvider: null, items: null);
-                var results = new List<ValidationResult>();
-
-                // validate the argument
-                var isValid = Validator.TryValidateObject(arg, context, results);
+                var results = arg.ValidateObject(out bool isValid);
                 if (!isValid) {
                     results.ForEach(result => messages.Add($"{result.MemberNames} -> {result.ErrorMessage}"));
                     isErrored = true;
