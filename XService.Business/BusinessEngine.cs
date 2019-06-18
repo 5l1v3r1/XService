@@ -66,12 +66,8 @@ namespace XService.Business
                         };
                         rule.Execute(model);
                     }
-
-
-
                     // force the execution cycle to break
                     breakExecution = true;
-
                 }
                 catch (Exception ex)
                 {
