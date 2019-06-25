@@ -23,7 +23,7 @@ There are other templates that focus on domain driven design or implement strong
   - Allows the business hosted service to remain portable from its execution profile
 - Linting
   - [.editorconfig](https://editorconfig.org/) settings to enforce (or encourage) development standards
-  - [otnet-format](https://github.com/dotnet/format)
+  - [dotnet-format](https://github.com/dotnet/format)
     - Allows for automated code corrections via .editorconfig file
     - _For VS Code/Codium Users_ there are tasks supporting installation and running
 - [Docker](https://www.docker.com/) Support

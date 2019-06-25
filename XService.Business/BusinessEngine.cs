@@ -7,13 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace XService.Business
-{
+namespace XService.Business {
     /// <summary>
     /// Provides business logic
     /// </summary>
-    public class BusinessEngine : BackgroundService
-    {
+    public class BusinessEngine : BackgroundService {
         /// <summary>Provides configuration services<summary>
         private readonly IConfiguration _Configuration;
 
@@ -32,8 +30,7 @@ namespace XService.Business
         /// Constructor
         /// </summary>
         /// <param name="configuration"></param>
-        public BusinessEngine(IConfiguration configuration, ILogger<BusinessEngine> executionLogger, IEnumerable<Rules.IRule> rules)
-        {
+        public BusinessEngine(IConfiguration configuration, ILogger<BusinessEngine> executionLogger, IEnumerable<Rules.IRule> rules) {
             _Configuration = configuration;
             _ExecutionLogger = executionLogger;
             _Rules = rules.ToList();
@@ -44,24 +41,19 @@ namespace XService.Business
         /// </summary>
         /// <param name="stoppingToken">The task cancellation token</param>
         /// <returns></returns>
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
+        protected override Task ExecuteAsync(CancellationToken stoppingToken) {
             // This can be used to shutdown the task once the objective has been completed
             var breakExecution = false;
 
-            while (!stoppingToken.IsCancellationRequested && !breakExecution)
-            {
-                try
-                {
+            while (!stoppingToken.IsCancellationRequested && !breakExecution) {
+                try {
                     _ExecutionLogger?.LogInformation($"Input Folder: {_Configuration.GetValue<string>("InputFolder")}");
                     _ExecutionLogger?.LogInformation($"Output Folder: {_Configuration.GetValue<string>("OutputFolder")}");
 
                     // Do work here
                     _ExecutionLogger?.LogInformation("In business logic");
-                    _Rules.ForEach(rule =>
-                    {
-                        var model = new Models.SampleModel
-                        {
+                    _Rules.ForEach(rule => {
+                        var model = new Models.SampleModel {
                             Name = "Somebody I UsedToKnow",
                             Created = DateTime.Now
                         };
@@ -70,8 +62,7 @@ namespace XService.Business
                     // force the execution cycle to break
                     breakExecution = true;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     _ExecutionLogger?.LogError(ex, "An error has occurred");
                     throw;
                 }

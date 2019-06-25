@@ -1,58 +1,191 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/XService.Driver/XService.Driver.csproj"
-            ],
-            "problemMatcher": "$tsc"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/XService.Driver/XService.Driver.csproj",
-                "-c",
-                "Release"
-            ],
-            "problemMatcher": "$tsc"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "${workspaceFolder}/XService.Driver/XService.Driver.csproj"
-            ],
-            "problemMatcher": "$tsc"
-        },
-        {
-            "label": "Install dotnet-format",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "tool",
-                "install",
-                "dotnet-format",
-                "-g"
-            ]
-        },
-        {
-            "label": "Format",
-            "command": "dotnet-format",
-            "type": "process",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/XService.Driver/XService.Driver.csproj"
+      ],
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "watch",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "${workspaceFolder}/XService.Driver/XService.Driver.csproj"
+      ],
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "Install dotnet-format",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "tool",
+        "install",
+        "dotnet-format",
+        "-g"
+      ]
+    },
+    {
+      "label": "Install XmlDocMd",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "tool",
+        "install",
+        "xmldocmd",
+        "-g"
+      ]
+    },
+    {
+      "label": "Install Dependencies",
+      "dependsOn": [
+        "Install XmlDocMd",
+        "Install dotnet-format"
+      ]
+    },
+    {
+      "label": "Generate Business documentation",
+      "command": "xmldocmd",
+      "type": "process",
+      "args": [
+        "XService.Business.dll",
+        "XService.Business-Docs"
+      ],
+      "windows": {
+        "options": {
+          "cwd": "${workspaceRoot}\\Published"
         }
-    ]
+      },
+      "linux": {
+        "options": {
+          "cwd": "${workspaceRoot}/Published"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "Release"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Generate Driver documentation",
+      "command": "xmldocmd",
+      "type": "process",
+      "args": [
+        "XService.Driver.dll",
+        "XService.Driver-Docs"
+      ],
+      "windows": {
+        "options": {
+          "cwd": "${workspaceRoot}\\Published"
+        }
+      },
+      "linux": {
+        "options": {
+          "cwd": "${workspaceRoot}/Published"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "Release"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Generate Enterprise documentation",
+      "command": "xmldocmd",
+      "type": "process",
+      "args": [
+        "XService.Enterprise.dll",
+        "XService.Enterprise-Docs"
+      ],
+      "windows": {
+        "options": {
+          "cwd": "${workspaceRoot}\\Published"
+        }
+      },
+      "linux": {
+        "options": {
+          "cwd": "${workspaceRoot}/Published"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "Release"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Release",
+      "command": "dotnet",
+      "type": "process",
+      "windows": {
+        "options": {
+          "cwd": "${workspaceRoot}\\XService.Driver"
+        },
+        "args": [
+          "build",
+          "--configuration",
+          "Release",
+          "--output",
+          "${workspaceRoot}\\Published",
+          "--clean"
+        ]
+      },
+      "linux": {
+        "options": {
+          "cwd": "${workspaceRoot}/XService.Driver"
+        },
+        "args": [
+          "build",
+          "--configuration",
+          "Release",
+          "--output",
+          "${workspaceRoot}/Published"
+        ]
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "Format"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Format",
+      "command": "dotnet-format",
+      "type": "process",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
 }
