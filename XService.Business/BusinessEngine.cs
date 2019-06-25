@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ namespace XService.Business
         /// </remarks>
         private readonly ILogger<BusinessEngine> _ExecutionLogger;
 
-        private readonly IEnumerable<Rules.IRule> _Rules;
+        private readonly List<Rules.IRule> _Rules;
 
         /// <summary>
         /// Constructor
@@ -35,7 +36,7 @@ namespace XService.Business
         {
             _Configuration = configuration;
             _ExecutionLogger = executionLogger;
-            _Rules = rules;
+            _Rules = rules.ToList();
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace XService.Business
 
                     // Do work here
                     _ExecutionLogger?.LogInformation("In business logic");
-                    foreach (var rule in _Rules)
+                    _Rules.ForEach(rule =>
                     {
                         var model = new Models.SampleModel
                         {
@@ -65,7 +66,7 @@ namespace XService.Business
                             Created = DateTime.Now
                         };
                         rule.Execute(model);
-                    }
+                    });
                     // force the execution cycle to break
                     breakExecution = true;
                 }
