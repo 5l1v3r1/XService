@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Runtime.Caching;
 using Castle.DynamicProxy;
 using XService.Enterprise.Attributes;
 using XService.Enterprise.Contracts;
@@ -63,10 +62,10 @@ namespace XService.Enterprise.Aspects {
         /// <param name="invocation"></param>
         /// <returns></returns>
         private string GetInvocationSignature(IInvocation invocation) {
-            return String.Format("{0}-{1}-{2}",
+            return string.Format("{0}-{1}-{2}",
                 invocation.TargetType.FullName,
                 invocation.Method.Name,
-                String.Join("-", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
+                string.Join("-", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
             );
         }
     }

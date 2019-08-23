@@ -4,6 +4,9 @@ using XService.Enterprise.Extensions;
 
 namespace XService.Enterprise.Aspects {
     public class ModelValidatorInterceptor : AbstractInterceptor {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ModelValidatorInterceptor() { }
 
         /// <summary>
