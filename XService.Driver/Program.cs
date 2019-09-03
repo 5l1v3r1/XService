@@ -21,23 +21,38 @@ using XService.Enterprise.Providers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace XService.Driver {
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Program {
 
         private static IConfigurationRoot _Configuration;
         public static void Main(string[] args) {
-            Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
+            // static async Task ...  await hostBuilder.RunConsoleAsync() for service daemon
+            Environment.ExitCode = DriverExitCodes.Success;
 
-            var hostBuilder = new HostBuilder()
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureContainer<ContainerBuilder>(ConfigureContainer())
-                .ConfigureHostConfiguration(ConfigureHostConfiguration(args))
-                .ConfigureAppConfiguration(ConfigureAppConfiguration())
-                .ConfigureLogging(ConfigureLogging())
-                .ConfigureServices(ConfigureServices());
-            // return the hostBuilder task and set the Main to Task to run as a continuous service
+            Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
+            var hostBuilder = new HostBuilder();
+
+            try {
+                hostBuilder
+                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                    .ConfigureContainer<ContainerBuilder>(ConfigureContainer())
+                    .ConfigureHostConfiguration(ConfigureHostConfiguration(args))
+                    .ConfigureAppConfiguration(ConfigureAppConfiguration())
+                    .ConfigureLogging(ConfigureLogging())
+                    .ConfigureServices(ConfigureServices());
+            } catch( Exception ) {
+                Environment.ExitCode = DriverExitCodes.DriverConfigurationFault;
+                throw;
+            }
+
             hostBuilder.RunConsoleAsync();
         }
 
+        /// <summary>
+        /// Configure services hook
+        /// </summary>
+        /// <returns></returns>
         private static Action<HostBuilderContext, IServiceCollection> ConfigureServices() {
             return (context, services) => {
                 services.Configure<ConsoleLifetimeOptions>(options => {
