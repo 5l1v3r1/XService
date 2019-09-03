@@ -57,7 +57,9 @@
       "type": "process",
       "args": [
         "XService.Business.dll",
-        "XService.Business-Docs"
+        "XService.Business-Docs",
+        "--namespace",
+        "XService"
       ],
       "windows": {
         "options": {

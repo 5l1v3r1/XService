@@ -18,6 +18,7 @@ using Serilog.Sinks.SystemConsole;
 using XService.Enterprise.Aspects;
 using XService.Enterprise.Contracts;
 using XService.Enterprise.Providers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace XService.Driver {
     public class Program {
@@ -31,9 +32,18 @@ namespace XService.Driver {
                 .ConfigureContainer<ContainerBuilder>(ConfigureContainer())
                 .ConfigureHostConfiguration(ConfigureHostConfiguration(args))
                 .ConfigureAppConfiguration(ConfigureAppConfiguration())
-                .ConfigureLogging(ConfigureLogging());
+                .ConfigureLogging(ConfigureLogging())
+                .ConfigureServices(ConfigureServices());
             // return the hostBuilder task and set the Main to Task to run as a continuous service
             hostBuilder.RunConsoleAsync();
+        }
+
+        private static Action<HostBuilderContext, IServiceCollection> ConfigureServices() {
+            return (context, services) => {
+                services.Configure<ConsoleLifetimeOptions>(options => {
+                    options.SuppressStatusMessages = true;
+                });
+            };
         }
 
         /// <summary>

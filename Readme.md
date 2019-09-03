@@ -40,7 +40,7 @@ There are other templates that focus on domain driven design or implement strong
 ### To install as a dotnet new template
 
 ```
-dotnet new -i
+dotnet new -i .
 ```
 
 ### To uninstall
