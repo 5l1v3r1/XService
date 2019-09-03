@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -10,15 +9,12 @@ using Autofac.Extras.DynamicProxy;
 using Autofac.Extensions.DependencyInjection;
 
 using Serilog;
-using Serilog.Extensions.Logging;
-using Serilog.Settings.Configuration;
-using Serilog.Sinks.File;
-using Serilog.Sinks.SystemConsole;
 
 using XService.Enterprise.Aspects;
 using XService.Enterprise.Contracts;
 using XService.Enterprise.Providers;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace XService.Driver {
 
@@ -30,13 +26,14 @@ namespace XService.Driver {
             // static async Task ...  await hostBuilder.RunConsoleAsync() for service daemon
             Environment.ExitCode = DriverExitCodes.Success;
 
+            // This can be changed to support emojis on the cli -- 99.9% you don't need a rocket emoji unless something blows up
             Console.OutputEncoding = System.Text.UTF8Encoding.UTF8;
             var hostBuilder = new HostBuilder();
 
             try {
                 hostBuilder
                     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                    .ConfigureContainer<ContainerBuilder>(ConfigureContainer())
+                    .ConfigureContainer(ConfigureContainer())
                     .ConfigureHostConfiguration(ConfigureHostConfiguration(args))
                     .ConfigureAppConfiguration(ConfigureAppConfiguration())
                     .ConfigureLogging(ConfigureLogging())
@@ -82,9 +79,10 @@ namespace XService.Driver {
                 logger.Information($"OS Architecture      : {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
                 logger.Information($"Process Architecture : {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}");
                 logger.Information($"Processors           : {Environment.ProcessorCount}");
+                logger.Information($"Runtime Version      : {Environment.Version}");
                 logger.Information($"User                 : {Environment.UserDomainName}\\{Environment.UserName}");
-                logger.Information("Application Name     : {ApplicationName}");
-                logger.Information("Runtime Version      : {RuntimeVersion}");
+                logger.Information($"Application Name     : {typeof(Program).Assembly.GetName().Name}");
+                logger.Information($"Application Version  : {typeof(Program).Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>().Version}");
                 logger.Information("".PadRight(80, '*'));
             };
         }
