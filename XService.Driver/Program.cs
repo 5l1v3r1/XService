@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -13,8 +15,6 @@ using Serilog;
 using XService.Enterprise.Aspects;
 using XService.Enterprise.Contracts;
 using XService.Enterprise.Providers;
-using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace XService.Driver {
 
