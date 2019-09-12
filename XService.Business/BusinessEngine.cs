@@ -41,7 +41,7 @@ namespace XService.Business {
         /// </summary>
         /// <param name="stoppingToken">The task cancellation token</param>
         /// <returns></returns>
-        protected override Task ExecuteAsync(CancellationToken stoppingToken) {
+        protected async override Task ExecuteAsync(CancellationToken stoppingToken) {
             // This can be used to shutdown the task once the objective has been completed
             var breakExecution = false;
 
@@ -69,10 +69,6 @@ namespace XService.Business {
             }
 
             _ExecutionLogger?.LogInformation("Shutting down");
-
-            // TODO: When NetStandard is in 2.1 general release this can be changed to
-            // return Task.IsCompletedSuccessfully;
-            return Task.CompletedTask;
         }
     }
 }
